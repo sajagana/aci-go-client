@@ -15,13 +15,11 @@ type FunctionConnector struct {
 }
 
 type FunctionConnectorAttributes struct {
-	Name string `json:",omitempty"`
-
-	Annotation string `json:",omitempty"`
-
-	AttNotify string `json:",omitempty"`
-
-	NameAlias string `json:",omitempty"`
+	Name          string `json:",omitempty"`
+	Annotation    string `json:",omitempty"`
+	AttNotify     string `json:",omitempty"`
+	NameAlias     string `json:",omitempty"`
+	DeviceLIfName string `json:",omitempty"`
 }
 
 func NewFunctionConnector(vnsAbsFuncConnRn, parentDn, description string, vnsAbsFuncConnattr FunctionConnectorAttributes) *FunctionConnector {
@@ -52,6 +50,7 @@ func (vnsAbsFuncConn *FunctionConnector) ToMap() (map[string]string, error) {
 	A(vnsAbsFuncConnMap, "attNotify", vnsAbsFuncConn.AttNotify)
 
 	A(vnsAbsFuncConnMap, "nameAlias", vnsAbsFuncConn.NameAlias)
+	A(vnsAbsFuncConnMap, "deviceLIfName", vnsAbsFuncConn.DeviceLIfName)
 
 	return vnsAbsFuncConnMap, err
 }
@@ -76,7 +75,8 @@ func FunctionConnectorFromContainerList(cont *container.Container, index int) *F
 
 			AttNotify: G(FunctionConnectorCont, "attNotify"),
 
-			NameAlias: G(FunctionConnectorCont, "nameAlias"),
+			NameAlias:     G(FunctionConnectorCont, "nameAlias"),
+			DeviceLIfName: G(FunctionConnectorCont, "deviceLIfName"),
 		},
 	}
 }
